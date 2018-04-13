@@ -1,4 +1,5 @@
-import { createAction, NavigationActions, Storage } from '../utils'
+import { Navigation } from 'react-native-navigation-hybrid'
+import { createAction, Storage } from '../utils'
 import * as authService from '../services/auth'
 
 export default {
@@ -21,16 +22,22 @@ export default {
     *login({ payload }, { call, put }) {
       yield put(createAction('updateState')({ fetching: true }))
       const login = yield call(authService.login, payload)
-      if (login) {
-        yield put(
-          NavigationActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({ routeName: 'Main' })],
-          })
-        )
-      }
       yield put(createAction('updateState')({ login, fetching: false }))
       Storage.set('login', login)
+      Navigation.setRoot({
+        tabs: [
+          {
+            stack: {
+              screen: { moduleName: 'Home' },
+            },
+          },
+          {
+            stack: {
+              screen: { moduleName: 'Account' },
+            },
+          },
+        ],
+      })
     },
     *logout(action, { call, put }) {
       yield call(Storage.set, 'login', false)

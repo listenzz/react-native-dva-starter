@@ -1,26 +1,25 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Image } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { connect } from 'react-redux'
 
 import { Button } from '../components'
 
-import { createAction, NavigationActions } from '../utils'
+import { createAction } from '../utils'
 
 @connect(({ app }) => ({ ...app }))
 class Account extends Component {
-  static navigationOptions = {
-    title: 'Account',
-    tabBarLabel: 'Account',
-    tabBarIcon: ({ focused, tintColor }) => (
-      <Image
-        style={[styles.icon, { tintColor: focused ? tintColor : 'gray' }]}
-        source={require('../images/person.png')}
-      />
-    ),
+  static navigationItem = {
+    titleItem: {
+      title: 'Account',
+    },
+    tabItem: {
+      title: 'Account',
+      hideTabBarWhenPush: true,
+    },
   }
 
   gotoLogin = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'Login' }))
+    this.props.navigation.present('Login', 0)
   }
 
   logout = () => {

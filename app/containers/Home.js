@@ -1,26 +1,24 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Image } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { connect } from 'react-redux'
 
 import { Button } from '../components'
 
-import { NavigationActions } from '../utils'
-
 @connect()
 class Home extends Component {
-  static navigationOptions = {
-    title: 'Home',
-    tabBarLabel: 'Home',
-    tabBarIcon: ({ focused, tintColor }) => (
-      <Image
-        style={[styles.icon, { tintColor: focused ? tintColor : 'gray' }]}
-        source={require('../images/house.png')}
-      />
-    ),
+  static navigationItem = {
+    titleItem: {
+      title: 'Home',
+    },
+    tabItem: {
+      title: 'Home',
+      // icon: Image.resolveAssetSource(require('../images/house.png')),
+      hideTabBarWhenPush: true,
+    },
   }
 
   gotoDetail = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'Detail' }))
+    this.props.navigation.push('Detail')
   }
 
   render() {

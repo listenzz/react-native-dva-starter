@@ -4,12 +4,14 @@ import { connect } from 'react-redux'
 
 import { Button, Touchable } from '../components'
 
-import { createAction, NavigationActions } from '../utils'
+import { createAction } from '../utils'
 
 @connect(({ app }) => ({ ...app }))
 class Login extends Component {
-  static navigationOptions = {
-    title: 'Login',
+  static navigationItem = {
+    titleItem: {
+      title: 'Login',
+    },
   }
 
   onLogin = () => {
@@ -17,7 +19,7 @@ class Login extends Component {
   }
 
   onClose = () => {
-    this.props.dispatch(NavigationActions.back())
+    this.props.navigation.dismiss()
   }
 
   render() {
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
   close: {
     position: 'absolute',
     right: 20,
-    top: 40,
+    top: 80,
   },
 })
 

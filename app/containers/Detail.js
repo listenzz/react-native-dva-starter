@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { connect } from 'react-redux'
-
 import { Button } from '../components'
-
-import { NavigationActions } from '../utils'
 
 @connect()
 class Detail extends Component {
@@ -13,11 +10,11 @@ class Detail extends Component {
   }
 
   gotoDetail = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'Detail' }))
+    this.props.navigation.push('Detail')
   }
 
   goBack = () => {
-    this.props.dispatch(NavigationActions.back({ routeName: 'Account' }))
+    this.props.navigation.pop()
   }
 
   render() {
